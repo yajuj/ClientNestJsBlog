@@ -45,7 +45,7 @@ const PostForm = () => {
       </Form.Group>
       <Form.Group controlId='formFile' className='mb-3'>
         <Form.Label>Добавть фото</Form.Label>
-        <Form.Control type='file' onChange={handleFileUpload} />
+        <Form.Control type='file' accept="image/*" onChange={handleFileUpload} />
       </Form.Group>
       <Button variant='primary' type='submit'>
         Submit
