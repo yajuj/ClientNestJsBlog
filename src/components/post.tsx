@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button, Card } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 import { IPost } from '../types/posts';
 import { User } from '../types/user.types';
 
@@ -30,6 +31,9 @@ const Post: React.FC<PostProps> = ({
       {author_id === user.id && (
         <div style={{ display: 'flex', gap: '3px' }}>
           <Button onClick={() => removePost(_id)}>x</Button>
+          <Link to={`/update/${_id}`} className='btn btn-primary'>
+            &#x022EF;
+          </Link>
         </div>
       )}
     </Card>

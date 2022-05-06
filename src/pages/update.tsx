@@ -1,18 +1,37 @@
-import React, { useState } from 'react';
-import { Form, Button } from 'react-bootstrap';
-import { alignPropType } from 'react-bootstrap/esm/types';
+import React, { useEffect, useState } from 'react';
+import { Button, Form } from 'react-bootstrap';
+import { useParams } from 'react-router';
+import { useNavigate } from 'react-router-dom';
 import api from '../api/api';
 import { useAppContext } from '../context/app-context';
 
-const PostForm = () => {
+const UpdatePage = () => {
+  const { id } = useParams();
   const [text, setText] = useState<string>('');
+  let navigate = useNavigate();
   const [pathToImage, setPathToImage] = useState<string>('');
+  const { updatePost, findPost } = useAppContext();
 
-  const { error, addPost, isAuth } = useAppContext();
+  useEffect(() => {
+    id && _findPost(id);
+  }, [id]);
+
+  const _findPost = async (id: string) => {
+    const post = await findPost(id);
+    if (post) setText(post.message);
+  };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    addPost({ message: text, photo: pathToImage });
+    if (!id) return;
+    updatePost(
+      {
+        message: text,
+        ...(pathToImage ? { photo: pathToImage } : {}),
+      },
+      id
+    );
+    navigate('/');
   };
 
   const handleFileUpload = async (e: any) => {
@@ -58,4 +77,4 @@ const PostForm = () => {
   );
 };
 
-export default PostForm;
+export default UpdatePage;

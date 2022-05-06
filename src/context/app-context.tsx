@@ -13,8 +13,9 @@ interface ContextState {
   signIn: (username: string, password: string) => void;
   logout: () => void;
   addPost: (post: Pick<IPost, 'message' | 'photo' | 'video'>) => void;
-  updatePost: (updatedPost: Partial<IPost>) => void;
+  updatePost: (updatedPost: Partial<IPost>, id: string) => void;
   removePost: (id: string) => void;
+  findPost: (id: string) => Promise<IPost | null | undefined>;
 }
 interface ContextProps {
   children: React.ReactNode;
@@ -110,10 +111,19 @@ export const AppContextProvider: React.FC<ContextProps> = ({ children }) => {
     }
   };
 
-  const updatePost = async (updatedPost: Partial<IPost>) => {
+  const updatePost = async (updatedPost: Partial<IPost>, id: string) => {
     try {
-      const { data } = await api.patch<IPost>('/posts', updatedPost);
-      setPosts(posts.map(post => (post._id === data._id ? data : post)));
+      const { data } = await api.patch<IPost>(`posts/${id}`, updatedPost);
+      setPosts(posts.map(post => (post._id === id ? data : post)));
+    } catch (error) {
+      setError('Ошибка');
+    }
+  };
+
+  const findPost = async (id: string) => {
+    try {
+      const { data } = await api.get<IPost>(`posts/${id}`);
+      return data ? data : null;
     } catch (error) {
       setError('Ошибка');
     }
@@ -141,6 +151,7 @@ export const AppContextProvider: React.FC<ContextProps> = ({ children }) => {
         addPost,
         updatePost,
         removePost,
+        findPost,
       }}
     >
       {children}
