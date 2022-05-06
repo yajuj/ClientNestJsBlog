@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Nav, Navbar } from 'react-bootstrap';
+import { Button, Container, Nav, Navbar } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { useAppContext } from '../context/app-context';
 
@@ -14,10 +14,12 @@ const NavbarComponent = () => {
         </Navbar.Brand>
         <Nav className='me-left'>
           {isAuth ? (
-            <Nav.Link onClick={logout}>Logout</Nav.Link>
+            <Nav.Link onClick={logout}>
+              <Button variant='outline-primary'>Logout</Button>
+            </Nav.Link>
           ) : (
-            <Nav.Link className='btn btn-primary' as={Link} to='signin'>
-              Login
+            <Nav.Link as={Link} to='signin'>
+              <Button variant='outline-primary'>SignIn</Button>
             </Nav.Link>
           )}
         </Nav>
