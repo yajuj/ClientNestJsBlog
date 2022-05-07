@@ -94,6 +94,7 @@ export const AppContextProvider: React.FC<ContextProps> = ({ children }) => {
     try {
       await api.post<AuthResponce>('/auth/logout');
       setIsAuth(false);
+      setUser({} as User);
       localStorage.removeItem('access_token');
       localStorage.removeItem('refresh_token');
     } catch (error) {

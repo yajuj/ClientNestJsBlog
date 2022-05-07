@@ -3,6 +3,7 @@ import { Form, Button } from 'react-bootstrap';
 import { alignPropType } from 'react-bootstrap/esm/types';
 import api from '../api/api';
 import { useAppContext } from '../context/app-context';
+import { IPost } from '../types/posts';
 
 const PostForm = () => {
   const [text, setText] = useState<string>('');
@@ -12,7 +13,7 @@ const PostForm = () => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    addPost({ message: text, photo: pathToImage });
+    addPost({ message: text, ...(pathToImage ? { photo: pathToImage } : {}) });
   };
 
   const handleFileUpload = async (e: any) => {
