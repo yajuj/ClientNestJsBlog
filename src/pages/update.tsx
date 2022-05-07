@@ -52,28 +52,30 @@ const UpdatePage = () => {
   };
 
   return (
-    <Form onSubmit={handleSubmit}>
-      <Form.Group className='mb-3' controlId='exampleForm.ControlTextarea1'>
-        <Form.Label>Сообщение</Form.Label>
-        <Form.Control
-          onChange={e => setText(e.target.value)}
-          value={text}
-          as='textarea'
-          rows={3}
-        />
-      </Form.Group>
-      <Form.Group controlId='formFile' className='mb-3'>
-        <Form.Label>Добавть фото</Form.Label>
-        <Form.Control
-          type='file'
-          accept='image/*'
-          onChange={handleFileUpload}
-        />
-      </Form.Group>
-      <Button variant='primary' type='submit'>
-        Submit
-      </Button>
-    </Form>
+    <div className='w-50 mx-auto'>
+      <Form onSubmit={handleSubmit}>
+        <Form.Group className='mb-3' controlId='exampleForm.ControlTextarea1'>
+          <Form.Label>Сообщение</Form.Label>
+          <Form.Control
+            onChange={e => setText(e.target.value)}
+            value={text}
+            as='textarea'
+            rows={3}
+          />
+        </Form.Group>
+        <Form.Group controlId='formFile' className='mb-3'>
+          <Form.Label>Добавть фото</Form.Label>
+          <Form.Control
+            type='file'
+            accept='image/*'
+            onChange={handleFileUpload}
+          />
+        </Form.Group>
+        <Button variant='primary' type='submit'>
+          Submit
+        </Button>
+      </Form>
+    </div>
   );
 };
 
