@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { AuthResponce } from '../types/auth-responsce';
 
-const API_URL = 'https://yajujrestapi.herokuapp.com';
+const API_URL = '';
 
 const api = axios.create({
   baseURL: API_URL,
